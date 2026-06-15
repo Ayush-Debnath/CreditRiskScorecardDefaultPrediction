@@ -226,21 +226,25 @@ def prob_to_score(prob: float) -> int:
 
 
 def get_risk_tier(score: int) -> tuple:
-    """Map score to risk tier, decision, and reason."""
+    """
+    Map score to risk tier, decision, and reason.
+    Thresholds calibrated to model's actual score distribution:
+      P75 = 681, P50 = 599, P25 = 511, P10 = 436
+    """
     if score >= 720:
-        return ("Prime",         "APPROVED",
+        return ("Prime",          "APPROVED",
                 "Strong credit profile — low default risk")
-    elif score >= 680:
-        return ("Near-Prime",    "APPROVED",
-                "Acceptable credit profile — moderate risk")
     elif score >= 640:
-        return ("Sub-Prime",     "APPROVED",
+        return ("Near-Prime",     "APPROVED",
+                "Acceptable credit profile — moderate risk")
+    elif score >= 560:
+        return ("Sub-Prime",      "APPROVED",
                 "Elevated risk — approve with higher rate")
-    elif score >= 600:
-        return ("Deep Sub-Prime","REVIEW",
+    elif score >= 490:
+        return ("Deep Sub-Prime", "REVIEW",
                 "High default risk — manual underwriting required")
     else:
-        return ("High Risk",     "DECLINED",
+        return ("High Risk",      "DECLINED",
                 "Credit profile does not meet minimum threshold")
 
 

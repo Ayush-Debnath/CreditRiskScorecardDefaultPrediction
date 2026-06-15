@@ -373,15 +373,15 @@ elif page == "🎯 Loan Scorer":
         score = prob_to_score(prob)
 
         if score >= 720:
-            tier, decision, color = "Prime",         "✅ APPROVED", "approved"
-        elif score >= 680:
-            tier, decision, color = "Near-Prime",    "✅ APPROVED", "approved"
+            tier, decision, color = "Prime",          "✅ APPROVED", "approved"
         elif score >= 640:
-            tier, decision, color = "Sub-Prime",     "✅ APPROVED", "approved"
-        elif score >= 600:
-            tier, decision, color = "Deep Sub-Prime","⚠️ REVIEW",   "review"
+            tier, decision, color = "Near-Prime",     "✅ APPROVED", "approved"
+        elif score >= 560:
+            tier, decision, color = "Sub-Prime",      "✅ APPROVED", "approved"
+        elif score >= 490:
+            tier, decision, color = "Deep Sub-Prime", "⚠️ REVIEW",   "review"
         else:
-            tier, decision, color = "High Risk",     "❌ DECLINED", "declined"
+            tier, decision, color = "High Risk",      "❌ DECLINED", "declined"
 
         # score display
         col1, col2, col3, col4 = st.columns(4)
@@ -400,10 +400,10 @@ elif page == "🎯 Loan Scorer":
                 'axis'    : {'range': [300, 850]},
                 'bar'     : {'color': "#4C9BE8"},
                 'steps'   : [
-                    {'range': [300, 600], 'color': "#FFCDD2"},
-                    {'range': [600, 640], 'color': "#FFE0B2"},
-                    {'range': [640, 680], 'color': "#FFF9C4"},
-                    {'range': [680, 720], 'color': "#DCEDC8"},
+                    {'range': [300, 490], 'color': "#FFCDD2"},
+                    {'range': [490, 560], 'color': "#FFE0B2"},
+                    {'range': [560, 640], 'color': "#FFF9C4"},
+                    {'range': [640, 720], 'color': "#DCEDC8"},
                     {'range': [720, 850], 'color': "#C8E6C9"},
                 ],
                 'threshold': {

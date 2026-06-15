@@ -1,2 +1,4 @@
 Model,Val AUC,Val KS,Val Gini,OOT AUC,OOT KS,OOT Gini
+logistic_regression_scorecard,0.6968,0.2851,0.3935,0.6883,0.2738,0.3767
+random_forest,0.7026,0.2944,0.4052,0.6889,0.2788,0.3779
 xgboost,0.7097,0.3044,0.4195,0.6966,0.2873,0.3932

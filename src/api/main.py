@@ -213,13 +213,15 @@ def engineer_features(app: LoanApplication) -> dict:
 
 
 def prob_to_score(prob: float) -> int:
-    """Convert PD probability to 300-850 credit score."""
-    factor     = 20 / np.log(2)
-    base_score = 600
-    base_odds  = 50
-    offset     = base_score - factor * np.log(base_odds)
-    odds       = (1 - prob) / max(prob, 1e-10)
-    score      = offset + factor * np.log(max(odds, 1e-10))
+    """
+    Convert PD probability to 300-850 credit score.
+    Uses min-max rescaling calibrated to this model's actual PD range.
+    Min PD (~9%) = best borrower = 850
+    Max PD (~89%) = worst borrower = 300
+    """
+    MIN_PD = 0.09
+    MAX_PD = 0.90
+    score  = 850 - ((prob - MIN_PD) / (MAX_PD - MIN_PD)) * (850 - 300)
     return int(np.clip(round(score), 300, 850))
 
 

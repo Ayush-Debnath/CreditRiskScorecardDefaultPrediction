@@ -1,0 +1,2 @@
+Model,Val AUC,Val KS,Val Gini,OOT AUC,OOT KS,OOT Gini
+xgboost,0.7097,0.3044,0.4195,0.6966,0.2873,0.3932

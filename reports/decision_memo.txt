@@ -1,0 +1,65 @@
+
+================================================================================
+MODEL RISK MANAGEMENT — CHAMPION-CHALLENGER DECISION MEMO
+================================================================================
+Date        : 2026-06-15
+Author      : Ayush Debnath
+Project     : Credit Risk Scorecard — LendingClub Portfolio
+Evaluation  : Out-of-Time (OOT) Sample, Vintage 2017-2018
+--------------------------------------------------------------------------------
+
+EXECUTIVE SUMMARY
+-----------------
+We evaluated the XGBoost Challenger model against the incumbent Logistic
+Regression Scorecard (Champion) on an out-of-time holdout of 240,506 loans
+originated in 2017-2018. Neither model was trained on this data.
+
+STATISTICAL RESULTS
+-------------------
+Metric                 Champion (LR)       Challenger (XGB)    Winner
+AUC                    0.6883              0.6966              XGB ✓
+KS Statistic           0.2738              0.2873              XGB ✓
+Gini Coefficient       0.3766              0.3932              XGB ✓
+
+HYPOTHESIS TEST (Z-TEST)
+------------------------
+H0: AUC_challenger <= AUC_champion
+H1: AUC_challenger >  AUC_champion
+Z-Score  : 4.8759
+P-Value  : 0.000001
+Alpha    : 0.05
+Result   : Reject H0 — difference is statistically significant
+
+BAYESIAN ANALYSIS
+-----------------
+P(Challenger > Champion) : 100.00%
+Expected AUC Uplift      : +0.008285
+95% Credible Interval    : [+0.004975, +0.011616]
+
+BUSINESS IMPACT (threshold=0.25, LGD=0.6)
+--------------------------------------------------------------------------------
+                        Champion        Challenger      Delta
+Approval Rate           16.16%          16.52%          +0.36%
+Expected Loss           $  55,135,618  $  49,514,967  $  +5,620,651
+EL Reduction (%)        —               —               +10.19%
+Bad Loans Approved         3,129           3,016            +113
+
+RECOMMENDATION
+--------------
+DEPLOY CHALLENGER
+
+Rationale:
+- Challenger shows statistically significant AUC improvement (p < 0.05)
+- Bayesian analysis confirms >80% probability challenger outperforms
+- Challenger reduces expected credit loss
+- Interpretability: LR Scorecard remains preferred for regulatory reporting
+- Recommendation: Use XGB for decisioning, LR for regulatory submissions
+
+CAVEATS
+-------
+- Analysis based on LendingClub public data (proxy for real portfolio)
+- LGD assumed at 60% (industry standard, not calibrated to this portfolio)
+- Macro environment 2017-2018 differs from training period 2007-2015
+- Full deployment requires shadow scoring period before live cutover
+
+================================================================================

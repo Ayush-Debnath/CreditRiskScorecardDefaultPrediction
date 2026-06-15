@@ -231,7 +231,7 @@ mlruns/
 Thumbs.db
 
 # reports
-reports/figures/
+# reports/figures/
 
 # data — never commit raw data
 data/raw/
